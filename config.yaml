@@ -1,0 +1,82 @@
+singleuser:
+  image:
+    name: jupyter/datascience-notebook
+    tag: latest
+
+  # Resource guarantees and limits
+  extraResource:
+    guarantees:
+      cpu: "2"        # Minimum guarantee of 2 CPUs
+      memory: "8Gi"   # Minimum guarantee of 8Gi of RAM
+    limits:
+      cpu: "8"        # Maximum of 4 CPUs
+      memory: "64Gi"  # Maximum of 16Gi of RAM
+      nvidia.com/gpu: "1"  # Maximum of 1 GPU
+
+  # User profile options
+  profileList:
+    - display_name: "Small Instance"
+      description: "Minimum resources for light workloads"
+      kubespawner_override:
+        cpu_guarantee: 1
+        cpu_limit: 2
+        mem_guarantee: "4G"
+        mem_limit: "8G"
+        extra_resource_limits:
+          nvidia.com/gpu: "0"  # Set GPU limit to 0 for this profile
+
+    - display_name: "Standard Profile"
+      description: "16GB RAM, 4 CPU, and 1 GPU for standard use"
+      kubespawner_override:
+        cpu_guarantee: 4
+        cpu_limit: 4
+        mem_guarantee: "16G"
+        mem_limit: "16G"
+        extra_resource_limits:
+          nvidia.com/gpu: "1"
+
+    - display_name: "High-Performance Profile"
+      description: "64GB RAM, 8 CPU, and 2 GPUs for heavy workloads"
+      kubespawner_override:
+        cpu_guarantee: 8
+        cpu_limit: 8
+        mem_guarantee: "64G"
+        mem_limit: "64G"
+        extra_resource_limits:
+          nvidia.com/gpu: "2"
+
+hub:
+  config:
+    JupyterHub:
+      authenticator_class: firstuseauthenticator.FirstUseAuthenticator
+    KubeSpawner:
+      debug: true
+      delete_failed_pods: false
+      start_timeout: 300
+      events_enabled: true
+    FirstUseAuthenticator:
+      create_users: true
+      # This prompts new users to set a password on their first login, which is stored securely.
+    Authenticator:
+      admin_users:
+        - aagar8 # Replace with actual admin username
+      allowed_users:
+        - test  # Replace with actual usernames to limit access
+        - user1
+        - user2
+
+
+proxy:
+  https:
+    enabled: true
+    type: letsencrypt
+  service:
+    type: ClusterIP
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  hosts:
+    - jupyterhub2.local # Replace with your actual domain or hostname
