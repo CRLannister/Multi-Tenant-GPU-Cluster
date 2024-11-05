@@ -1,38 +1,38 @@
-singleuser:
-  image:
-    name: jupyter/datascience-notebook
-    tag: latest
-
-  # Resource guarantees and limits
-  extraResource:
-    guarantees:
-      cpu: "2"        # Minimum guarantee of 2 CPUs
-      memory: "8Gi"   # Minimum guarantee of 8Gi of RAM
-    limits:
-      cpu: "8"        # Maximum of 4 CPUs
-      memory: "64Gi"  # Maximum of 16Gi of RAM
-      nvidia.com/gpu: "1"  # Maximum of 1 GPU
-
-  # User profile options
-  profileList:
-    - display_name: "Small Instance"
-      description: "Minimum resources for light workloads"
-      kubespawner_override:
-        cpu_guarantee: 1
-        cpu_limit: 2
-        mem_guarantee: "4G"
-        mem_limit: "8G"
-        extra_resource_limits:
-          nvidia.com/gpu: "0"  # Set GPU limit to 0 for this profile
-
-    - display_name: "Standard Profile"
-      description: "16GB RAM, 4 CPU, and 1 GPU for standard use"
-      kubespawner_override:
-        cpu_guarantee: 4
-        cpu_limit: 4
-        mem_guarantee: "16G"
-        mem_limit: "16G"
-        extra_resource_limits:
+singleuser:                                                                                                                                                                                                        
+  image:                                                                                                                                                                                                           
+    name: jupyter/datascience-notebook                                                                                                                                                                             
+    tag: latest                                                                                                                                                                                                    
+                                                                                                                                                                                                                   
+  # Resource guarantees and limits                                                                                                                                                                                 
+  extraResource:                                                                                                                                                                                                   
+    guarantees:                                                                                                                                                                                                    
+      cpu: "2"        # Minimum guarantee of 2 CPUs                                                                                                                                                                
+      memory: "8Gi"   # Minimum guarantee of 8Gi of RAM                                                                                                                                                            
+    limits:                                                                                                                                                                                                        
+      cpu: "8"        # Maximum of 4 CPUs                                                                                                                                                                          
+      memory: "64Gi"  # Maximum of 16Gi of RAM                                                                                                                                                                     
+      nvidia.com/gpu: "1"  # Maximum of 1 GPU                                                                                                                                                                      
+                                                                                                                                                                                                                   
+  # User profile options                                                                                                                                                                                           
+  profileList:                                                                                                                                                                                                     
+    - display_name: "Small Instance"                                                                                                                                                                               
+      description: "Minimum resources for light workloads"                                                                                                                                                         
+      kubespawner_override:                                                                                                                                                                                        
+        cpu_guarantee: 1                                                                                                                                                                                           
+        cpu_limit: 2                                                                                                                                                                                               
+        mem_guarantee: "4G"                                                                                                                                                                                        
+        mem_limit: "8G"                                                                                                                                                                                            
+        extra_resource_limits:                                                                                                                                                                                     
+          nvidia.com/gpu: "0"  # Set GPU limit to 0 for this profile                                                                                                                                               
+                                                                                                                                                                                                                   
+    - display_name: "Standard Profile"                                                                                                                                                                             
+      description: "16GB RAM, 4 CPU, and 1 GPU for standard use"                                                                                                                                                   
+      kubespawner_override:                                                                                                                                                                                        
+        cpu_guarantee: 4                                                                                                                                                                                           
+        cpu_limit: 4                                                                                                                                                                                               
+        mem_guarantee: "16G"                                                                                                                                                                                       
+        mem_limit: "16G"                                                                                                                                                                                           
+        extra_resource_limits:                                                                                                                                                                                     
           nvidia.com/gpu: "1"
 
     - display_name: "High-Performance Profile"
