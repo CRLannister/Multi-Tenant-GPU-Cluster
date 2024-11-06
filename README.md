@@ -2,7 +2,7 @@
 This project, Multi-Tenant GPU Cluster, provides a detailed guide on setting up a Kubernetes-based GPU cluster with JupyterHub, aimed at facilitating efficient resource sharing across multiple users.
 
 ## Key Features
-- Kubernetes Cluster Setup: Step-by-step setup of Kubernetes on a multi-GPU server.
+- Kubernetes Cluster Setup: Step-by-step setup of Kubernetes on multi-GPU servers.
 - JupyterHub Integration: Configures JupyterHub to enable multi-user access with dedicated resource allocation for each user.
 - GPU Resource Management: Uses Kubernetes and Helm configurations to ensure effective multi-tenant utilization of GPUs.
 - Networking & Security: Ensures network configurations and secure access via Kubernetes Dashboard and JupyterHub authentication.
