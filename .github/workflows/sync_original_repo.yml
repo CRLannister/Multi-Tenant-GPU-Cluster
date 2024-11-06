@@ -1,0 +1,29 @@
+name: Update Fork from Upstream
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # Runs daily at 1:00 AM UTC
+  workflow_dispatch:       # Allows manual trigger if needed
+
+jobs:
+  update-fork:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Fork Repository
+        uses: actions/checkout@v2
+
+      - name: Add Upstream Remote
+        run: |
+          git remote add upstream https://github.com/CRLannister/Multi-Tenant-GPU-Cluster.git
+          git fetch upstream
+          
+      - name: Merge Changes from Upstream
+        run: |
+          git checkout main
+          git merge upstream/main
+          
+      - name: Push Changes to Fork
+        env:
+          ORG_TOKEN: ${{ secrets.ORG_TOKEN }}
+        run: |
+          git push https://x-access-token:${ORG_TOKEN}@github.com/UNHSAILLab/Multi-Tenant-GPU-Cluster.git main
