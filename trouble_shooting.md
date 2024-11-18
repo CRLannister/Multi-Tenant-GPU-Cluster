@@ -21,7 +21,7 @@ This guide provides step-by-step troubleshooting instructions to nsure your Kube
 	b. Check Kubernetes API Port
   		Ensure the Kubernetes API is accessible:
   		```bash
-  				nc -zv 10.105.10.80 6443
+		nc -zv 10.105.10.80 6443
   		```
 	c. Check Access to Services in Browser
 	    Use port-forwarding or the service's external IP to verify that the services are reachable in a browser. Replace <ip> and <port> with actual values.
@@ -64,8 +64,8 @@ This guide provides step-by-step troubleshooting instructions to nsure your Kube
 1. If the cluster fails to start, reinitialize it:
     Disable swap:
     ```bash
-		sudo swapoff -a
-		```
+	sudo swapoff -a
+	```
 2. Initialize Kubernetes:
 	```bash
 	sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --cri-socket=unix:///var/run/cri-dockerd.sock
@@ -133,5 +133,5 @@ kubectl get sc
 kubectl describe sc local-storage
 ```
 ## Final Notes
-    Always replace placeholders (e.g., <your-ip>, <pod-name>) with actual values.
-    Regularly monitor system resources (nvidia-smi, kubectl top nodes) to prevent resource exhaustion.
+Always replace placeholders (e.g., <your-ip>, <pod-name>) with actual values.
+Regularly monitor system resources (nvidia-smi, kubectl top nodes) to prevent resource exhaustion.
