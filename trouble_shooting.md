@@ -45,20 +45,20 @@ This guide provides step-by-step troubleshooting instructions to nsure your Kube
 	```bash
 	kubectl config get-contexts
 	```
-3. Check Cluster State
-a. Verify Pods in All Namespaces
-```bash
-kubectl get pods --all-namespaces
-```
-b. Check API Server Pods
-```bash
-kubectl -n kube-system get pods | grep apiserver
-```
-c. Check API Port Binding
-Ensure the Kubernetes API server is bound to the correct port:
-```bash
-sudo netstat -tuln | grep 6443
-```
+3. Check Cluster State  
+	a. Verify Pods in All Namespaces
+	```bash
+	kubectl get pods --all-namespaces
+	```
+	b. Check API Server Pods
+	```bash
+	kubectl -n kube-system get pods | grep apiserver
+	```
+	c. Check API Port Binding
+	Ensure the Kubernetes API server is bound to the correct port:
+	```bash
+	sudo netstat -tuln | grep 6443
+	```
 ## Reinitialize Kubernetes (If Necessary)
 
 1. If the cluster fails to start, reinitialize it:
