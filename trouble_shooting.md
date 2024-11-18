@@ -76,7 +76,7 @@ This guide provides step-by-step troubleshooting instructions to nsure your Kube
 	```
 4. Verify all pods are running:
 	```bash
-   	 kubectl get pods --all-namespaces
+ 	kubectl get pods --all-namespaces
 	```
 
 ## Helm Commands for JupyterHub
