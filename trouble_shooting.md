@@ -46,19 +46,19 @@ This guide provides step-by-step troubleshooting instructions to nsure your Kube
 	kubectl config get-contexts
 	```
 3. Check Cluster State
-	a. Verify Pods in All Namespaces
-		```bash
-		kubectl get pods --all-namespaces
-		```
-	b. Check API Server Pods
-		```bash
-		kubectl -n kube-system get pods | grep apiserver
-		```
-	c. Check API Port Binding
-		Ensure the Kubernetes API server is bound to the correct port:
-		```bash
-		sudo netstat -tuln | grep 6443
-		```
+a. Verify Pods in All Namespaces
+```bash
+kubectl get pods --all-namespaces
+```
+b. Check API Server Pods
+```bash
+kubectl -n kube-system get pods | grep apiserver
+```
+c. Check API Port Binding
+Ensure the Kubernetes API server is bound to the correct port:
+```bash
+sudo netstat -tuln | grep 6443
+```
 ## Reinitialize Kubernetes (If Necessary)
 
 1. If the cluster fails to start, reinitialize it:
@@ -72,11 +72,11 @@ This guide provides step-by-step troubleshooting instructions to nsure your Kube
 	```
 3. Reapply network plugin (Flannel):
 	```bash
-		kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-		```
+	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+	```
 4. Verify all pods are running:
 	```bash
-    kubectl get pods --all-namespaces
+   	 kubectl get pods --all-namespaces
 	```
 
 ## Helm Commands for JupyterHub
