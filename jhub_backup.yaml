@@ -1,0 +1,4114 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generateName: continuous-image-puller-
+    labels:
+      app: jupyterhub
+      component: continuous-image-puller
+      controller-revision-hash: 5bfb849d8
+      pod-template-generation: "1"
+      release: jhub2
+    name: continuous-image-puller-8ww5w
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DaemonSet
+      name: continuous-image-puller
+      uid: ed5a2494-c9bf-4801-8f31-c68feaf90e2c
+    resourceVersion: "1123611"
+    uid: 9d6756c5-4e4f-486e-a496-4d295c55947c
+  spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchFields:
+            - key: metadata.name
+              operator: In
+              values:
+              - exxact-10887
+    automountServiceAccountToken: false
+    containers:
+    - image: registry.k8s.io/pause:3.9
+      imagePullPolicy: IfNotPresent
+      name: pause
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsGroup: 65534
+        runAsUser: 65534
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    initContainers:
+    - command:
+      - /bin/sh
+      - -c
+      - echo "Pulling complete"
+      image: quay.io/jupyterhub/k8s-network-tools:3.3.8
+      imagePullPolicy: IfNotPresent
+      name: image-pull-metadata-block
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsGroup: 65534
+        runAsUser: 65534
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+    - command:
+      - /bin/sh
+      - -c
+      - echo "Pulling complete"
+      image: jupyter/datascience-notebook:latest
+      imagePullPolicy: Always
+      name: image-pull-singleuser
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsGroup: 65534
+        runAsUser: 65534
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+    nodeName: exxact-10887
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 0
+    tolerations:
+    - effect: NoSchedule
+      key: hub.jupyter.org/dedicated
+      operator: Equal
+      value: user
+    - effect: NoSchedule
+      key: hub.jupyter.org_dedicated
+      operator: Equal
+      value: user
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/disk-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/pid-pressure
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/unschedulable
+      operator: Exists
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:29Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:31Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:29Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://96fb2047fd6452be83d12217e2b7b48d7ef455d72215a913e5d6321e67738411
+      image: registry.k8s.io/pause:3.9
+      imageID: docker-pullable://registry.k8s.io/pause@sha256:7031c1b283388d2c2e09b57badb803c05ebed362dc88d84b480cc47f72a21097
+      lastState: {}
+      name: pause
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-18T06:16:31Z"
+    hostIP: 10.105.10.80
+    hostIPs:
+    - ip: 10.105.10.80
+    initContainerStatuses:
+    - containerID: docker://0b94e2f8f20e8861d8a971597138a129bedd6dc9b5821e2a1b29a2f9236dbc28
+      image: quay.io/jupyterhub/k8s-network-tools:3.3.8
+      imageID: docker-pullable://quay.io/jupyterhub/k8s-network-tools@sha256:78cb0a698501a6639f7f223370f2a2c1853676590dd815999bb10fe2271b1749
+      lastState: {}
+      name: image-pull-metadata-block
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: docker://0b94e2f8f20e8861d8a971597138a129bedd6dc9b5821e2a1b29a2f9236dbc28
+          exitCode: 0
+          finishedAt: "2024-12-18T06:16:29Z"
+          reason: Completed
+          startedAt: "2024-12-18T06:16:29Z"
+    - containerID: docker://efaa26a2e0901356d774684fdf8f224845bd5bf95d529672d3c93f1eaf2a4038
+      image: jupyter/datascience-notebook:latest
+      imageID: docker-pullable://jupyter/datascience-notebook@sha256:476c6e673e7d5d8b5059f8680b1c6a988942a79263da651bf302dc696ab311f2
+      lastState: {}
+      name: image-pull-singleuser
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: docker://efaa26a2e0901356d774684fdf8f224845bd5bf95d529672d3c93f1eaf2a4038
+          exitCode: 0
+          finishedAt: "2024-12-18T06:16:30Z"
+          reason: Completed
+          startedAt: "2024-12-18T06:16:30Z"
+    phase: Running
+    podIP: 10.244.0.60
+    podIPs:
+    - ip: 10.244.0.60
+    qosClass: BestEffort
+    startTime: "2024-12-18T06:16:29Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+      checksum/secret: d14808fdefc1510e752d95e2c1be3c4da679c3a4ac926646587effd1b1038349
+    creationTimestamp: "2024-12-18T12:35:04Z"
+    generateName: hub-845b7f5545-
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 845b7f5545
+      release: jhub2
+    name: hub-845b7f5545-cj66s
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: hub-845b7f5545
+      uid: 967a24df-b867-4f57-822d-a0ae51e7a15b
+    resourceVersion: "1197526"
+    uid: 2004b2dd-4630-4fdf-ad9b-7c1bc184e6dd
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+          weight: 100
+    containers:
+    - args:
+      - jupyterhub
+      - --config
+      - /usr/local/etc/jupyterhub/jupyterhub_config.py
+      - --upgrade-db
+      env:
+      - name: PYTHONUNBUFFERED
+        value: "1"
+      - name: HELM_RELEASE_NAME
+        value: jhub2
+      - name: POD_NAMESPACE
+        valueFrom:
+          fieldRef:
+            apiVersion: v1
+            fieldPath: metadata.namespace
+      - name: CONFIGPROXY_AUTH_TOKEN
+        valueFrom:
+          secretKeyRef:
+            key: hub.config.ConfigurableHTTPProxy.auth_token
+            name: hub
+      image: quay.io/jupyterhub/k8s-hub:3.3.8
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 30
+        httpGet:
+          path: /hub/health
+          port: http
+          scheme: HTTP
+        initialDelaySeconds: 300
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 3
+      name: hub
+      ports:
+      - containerPort: 8081
+        name: http
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 1000
+        httpGet:
+          path: /hub/health
+          port: http
+          scheme: HTTP
+        periodSeconds: 2
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsGroup: 1000
+        runAsUser: 1000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+        name: config
+        subPath: jupyterhub_config.py
+      - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+        name: config
+        subPath: z2jh.py
+      - mountPath: /usr/local/etc/jupyterhub/config/
+        name: config
+      - mountPath: /usr/local/etc/jupyterhub/secret/
+        name: secret
+      - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+        name: files
+        subPath: profile_access_authenticator.py
+      - mountPath: /srv/jupyterhub
+        name: pvc
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-5jg5v
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: exxact-10887
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+    serviceAccount: hub
+    serviceAccountName: hub
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: hub.jupyter.org/dedicated
+      operator: Equal
+      value: core
+    - effect: NoSchedule
+      key: hub.jupyter.org_dedicated
+      operator: Equal
+      value: core
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: hub
+      name: config
+    - name: secret
+      secret:
+        defaultMode: 420
+        secretName: hub
+    - name: files
+      secret:
+        defaultMode: 420
+        items:
+        - key: profile_access_authenticator.py
+          path: profile_access_authenticator.py
+        secretName: hub
+    - name: pvc
+      persistentVolumeClaim:
+        claimName: hub-db-dir
+    - name: kube-api-access-5jg5v
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:35:05Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:35:04Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:35:06Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:35:06Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:35:04Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://9767eb916da62466a765cd40da0aec1710e1a2e6a7eb99f83bb8d9007e62c3d9
+      image: quay.io/jupyterhub/k8s-hub:3.3.8
+      imageID: docker-pullable://quay.io/jupyterhub/k8s-hub@sha256:8513b65b8a098cc9c54967edade404f25b71a31ee16db9106a4021a8d1b9abd1
+      lastState: {}
+      name: hub
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-18T12:35:04Z"
+      volumeMounts:
+      - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+        name: config
+      - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+        name: config
+      - mountPath: /usr/local/etc/jupyterhub/config/
+        name: config
+      - mountPath: /usr/local/etc/jupyterhub/secret/
+        name: secret
+      - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+        name: files
+      - mountPath: /srv/jupyterhub
+        name: pvc
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-5jg5v
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 10.105.10.80
+    hostIPs:
+    - ip: 10.105.10.80
+    phase: Running
+    podIP: 10.244.0.122
+    podIPs:
+    - ip: 10.244.0.122
+    qosClass: BestEffort
+    startTime: "2024-12-18T12:35:04Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      hub.jupyter.org/username: aagar8
+    creationTimestamp: "2024-12-18T11:48:03Z"
+    labels:
+      app: jupyterhub
+      chart: jupyterhub-3.3.8
+      component: singleuser-server
+      heritage: jupyterhub
+      hub.jupyter.org/network-access-hub: "true"
+      hub.jupyter.org/servername: ""
+      hub.jupyter.org/username: aagar8
+      release: jhub2
+    name: jupyter-aagar8
+    namespace: jhub2
+    resourceVersion: "1188516"
+    uid: 78fcf931-31ca-48e5-9f93-b186f594d170
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - user
+          weight: 100
+    automountServiceAccountToken: false
+    containers:
+    - args:
+      - jupyterhub-singleuser
+      env:
+      - name: CPU_GUARANTEE
+        value: "8.0"
+      - name: CPU_LIMIT
+        value: "8.0"
+      - name: JPY_API_TOKEN
+        value: 76e791df80cd4c5ca7b1c2174d27cb70
+      - name: JUPYTERHUB_ACTIVITY_URL
+        value: http://hub:8081/hub/api/users/aagar8/activity
+      - name: JUPYTERHUB_ADMIN_ACCESS
+        value: "1"
+      - name: JUPYTERHUB_API_TOKEN
+        value: 76e791df80cd4c5ca7b1c2174d27cb70
+      - name: JUPYTERHUB_API_URL
+        value: http://hub:8081/hub/api
+      - name: JUPYTERHUB_BASE_URL
+        value: /
+      - name: JUPYTERHUB_CLIENT_ID
+        value: jupyterhub-user-aagar8
+      - name: JUPYTERHUB_COOKIE_HOST_PREFIX_ENABLED
+        value: "0"
+      - name: JUPYTERHUB_DEBUG
+        value: "1"
+      - name: JUPYTERHUB_HOST
+      - name: JUPYTERHUB_OAUTH_ACCESS_SCOPES
+        value: '["access:servers!server=aagar8/", "access:servers!user=aagar8"]'
+      - name: JUPYTERHUB_OAUTH_CALLBACK_URL
+        value: /user/aagar8/oauth_callback
+      - name: JUPYTERHUB_OAUTH_CLIENT_ALLOWED_SCOPES
+        value: '[]'
+      - name: JUPYTERHUB_OAUTH_SCOPES
+        value: '["access:servers!server=aagar8/", "access:servers!user=aagar8"]'
+      - name: JUPYTERHUB_SERVER_NAME
+      - name: JUPYTERHUB_SERVICE_PREFIX
+        value: /user/aagar8/
+      - name: JUPYTERHUB_SERVICE_URL
+        value: http://0.0.0.0:8888/user/aagar8/
+      - name: JUPYTERHUB_USER
+        value: aagar8
+      - name: JUPYTER_IMAGE
+        value: jupyter/datascience-notebook:latest
+      - name: JUPYTER_IMAGE_SPEC
+        value: jupyter/datascience-notebook:latest
+      - name: MEM_GUARANTEE
+        value: "68719476736"
+      - name: MEM_LIMIT
+        value: "137438953472"
+      image: jupyter/datascience-notebook:latest
+      imagePullPolicy: Always
+      lifecycle: {}
+      name: notebook
+      ports:
+      - containerPort: 8888
+        name: notebook-port
+        protocol: TCP
+      resources:
+        limits:
+          cpu: "8"
+          memory: 16Gi
+          nvidia.com/gpu: "1"
+        requests:
+          cpu: "2"
+          memory: 8Gi
+          nvidia.com/gpu: "1"
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsUser: 1000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /home/jovyan
+        name: volume-aagar8
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    initContainers:
+    - command:
+      - iptables
+      - --append
+      - OUTPUT
+      - --protocol
+      - tcp
+      - --destination
+      - 169.254.169.254
+      - --destination-port
+      - "80"
+      - --jump
+      - DROP
+      image: quay.io/jupyterhub/k8s-network-tools:3.3.8
+      imagePullPolicy: IfNotPresent
+      name: block-cloud-metadata
+      resources: {}
+      securityContext:
+        capabilities:
+          add:
+          - NET_ADMIN
+        privileged: true
+        runAsUser: 0
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+    nodeName: exxact-10887
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: OnFailure
+    schedulerName: jhub2-user-scheduler
+    securityContext:
+      fsGroup: 100
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: hub.jupyter.org/dedicated
+      operator: Equal
+      value: user
+    - effect: NoSchedule
+      key: hub.jupyter.org_dedicated
+      operator: Equal
+      value: user
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: volume-aagar8
+      persistentVolumeClaim:
+        claimName: claim-aagar8
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T11:48:20Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T11:48:20Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T11:48:21Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T11:48:21Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T11:48:18Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://de49f1a6c17fa1377e1b0a74dd0604ceb5f205f25dd8c72bc1f2c447acd33f36
+      image: jupyter/datascience-notebook:latest
+      imageID: docker-pullable://jupyter/datascience-notebook@sha256:476c6e673e7d5d8b5059f8680b1c6a988942a79263da651bf302dc696ab311f2
+      lastState: {}
+      name: notebook
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-18T11:48:20Z"
+      volumeMounts:
+      - mountPath: /home/jovyan
+        name: volume-aagar8
+    hostIP: 10.105.10.80
+    hostIPs:
+    - ip: 10.105.10.80
+    initContainerStatuses:
+    - containerID: docker://6fdbd207039f9cb73e0106a75037b2ae259776d36fab35cf9dc750bfe490cbed
+      image: quay.io/jupyterhub/k8s-network-tools:3.3.8
+      imageID: docker-pullable://quay.io/jupyterhub/k8s-network-tools@sha256:78cb0a698501a6639f7f223370f2a2c1853676590dd815999bb10fe2271b1749
+      lastState: {}
+      name: block-cloud-metadata
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: docker://6fdbd207039f9cb73e0106a75037b2ae259776d36fab35cf9dc750bfe490cbed
+          exitCode: 0
+          finishedAt: "2024-12-18T11:48:19Z"
+          reason: Completed
+          startedAt: "2024-12-18T11:48:19Z"
+    phase: Running
+    podIP: 10.244.0.119
+    podIPs:
+    - ip: 10.244.0.119
+    qosClass: Burstable
+    startTime: "2024-12-18T11:48:18Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      hub.jupyter.org/username: user1
+    creationTimestamp: "2024-12-18T12:27:45Z"
+    labels:
+      app: jupyterhub
+      chart: jupyterhub-3.3.8
+      component: singleuser-server
+      heritage: jupyterhub
+      hub.jupyter.org/network-access-hub: "true"
+      hub.jupyter.org/servername: ""
+      hub.jupyter.org/username: user1
+      release: jhub2
+    name: jupyter-user1
+    namespace: jhub2
+    resourceVersion: "1196114"
+    uid: 799f9d8c-ae04-4983-8fe1-a8fa6d67c074
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - user
+          weight: 100
+    automountServiceAccountToken: false
+    containers:
+    - args:
+      - jupyterhub-singleuser
+      env:
+      - name: CPU_GUARANTEE
+        value: "1.0"
+      - name: CPU_LIMIT
+        value: "2.0"
+      - name: JPY_API_TOKEN
+        value: d59b6ad132cb4b609397bc332d2bd219
+      - name: JUPYTERHUB_ACTIVITY_URL
+        value: http://hub:8081/hub/api/users/user1/activity
+      - name: JUPYTERHUB_ADMIN_ACCESS
+        value: "1"
+      - name: JUPYTERHUB_API_TOKEN
+        value: d59b6ad132cb4b609397bc332d2bd219
+      - name: JUPYTERHUB_API_URL
+        value: http://hub:8081/hub/api
+      - name: JUPYTERHUB_BASE_URL
+        value: /
+      - name: JUPYTERHUB_CLIENT_ID
+        value: jupyterhub-user-user1
+      - name: JUPYTERHUB_COOKIE_HOST_PREFIX_ENABLED
+        value: "0"
+      - name: JUPYTERHUB_DEBUG
+        value: "1"
+      - name: JUPYTERHUB_HOST
+      - name: JUPYTERHUB_OAUTH_ACCESS_SCOPES
+        value: '["access:servers!server=user1/", "access:servers!user=user1"]'
+      - name: JUPYTERHUB_OAUTH_CALLBACK_URL
+        value: /user/user1/oauth_callback
+      - name: JUPYTERHUB_OAUTH_CLIENT_ALLOWED_SCOPES
+        value: '[]'
+      - name: JUPYTERHUB_OAUTH_SCOPES
+        value: '["access:servers!server=user1/", "access:servers!user=user1"]'
+      - name: JUPYTERHUB_SERVER_NAME
+      - name: JUPYTERHUB_SERVICE_PREFIX
+        value: /user/user1/
+      - name: JUPYTERHUB_SERVICE_URL
+        value: http://0.0.0.0:8888/user/user1/
+      - name: JUPYTERHUB_USER
+        value: user1
+      - name: JUPYTER_IMAGE
+        value: jupyter/datascience-notebook:latest
+      - name: JUPYTER_IMAGE_SPEC
+        value: jupyter/datascience-notebook:latest
+      - name: MEM_GUARANTEE
+        value: "4294967296"
+      - name: MEM_LIMIT
+        value: "8589934592"
+      image: jupyter/datascience-notebook:latest
+      imagePullPolicy: Always
+      lifecycle: {}
+      name: notebook
+      ports:
+      - containerPort: 8888
+        name: notebook-port
+        protocol: TCP
+      resources:
+        limits:
+          cpu: "8"
+          memory: 16Gi
+          nvidia.com/gpu: "0"
+        requests:
+          cpu: "2"
+          memory: 8Gi
+          nvidia.com/gpu: "0"
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsUser: 1000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /home/jovyan
+        name: volume-user1
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    initContainers:
+    - command:
+      - iptables
+      - --append
+      - OUTPUT
+      - --protocol
+      - tcp
+      - --destination
+      - 169.254.169.254
+      - --destination-port
+      - "80"
+      - --jump
+      - DROP
+      image: quay.io/jupyterhub/k8s-network-tools:3.3.8
+      imagePullPolicy: IfNotPresent
+      name: block-cloud-metadata
+      resources: {}
+      securityContext:
+        capabilities:
+          add:
+          - NET_ADMIN
+        privileged: true
+        runAsUser: 0
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+    nodeName: lambda-01
+    nodeSelector:
+      gpu-type: lambda-10gb
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: OnFailure
+    schedulerName: jhub2-user-scheduler
+    securityContext:
+      fsGroup: 100
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: gpu-type
+      operator: Equal
+      value: lambda-10gb
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: volume-user1
+      persistentVolumeClaim:
+        claimName: claim-user1
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:27:47Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:27:47Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:27:48Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:27:48Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T12:27:45Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://89beedc86a71cbb358e2521eaa954b8bc03e31a091f05198a936bf74010f3ad3
+      image: jupyter/datascience-notebook:latest
+      imageID: docker-pullable://jupyter/datascience-notebook@sha256:476c6e673e7d5d8b5059f8680b1c6a988942a79263da651bf302dc696ab311f2
+      lastState: {}
+      name: notebook
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-18T12:27:47Z"
+      volumeMounts:
+      - mountPath: /home/jovyan
+        name: volume-user1
+    hostIP: 10.105.10.71
+    hostIPs:
+    - ip: 10.105.10.71
+    initContainerStatuses:
+    - containerID: docker://e29eb75874bb47c3a7228e8046fa6a4b53ff79a083c0850c991197838fe09d0a
+      image: quay.io/jupyterhub/k8s-network-tools:3.3.8
+      imageID: docker-pullable://quay.io/jupyterhub/k8s-network-tools@sha256:78cb0a698501a6639f7f223370f2a2c1853676590dd815999bb10fe2271b1749
+      lastState: {}
+      name: block-cloud-metadata
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: docker://e29eb75874bb47c3a7228e8046fa6a4b53ff79a083c0850c991197838fe09d0a
+          exitCode: 0
+          finishedAt: "2024-12-18T12:27:46Z"
+          reason: Completed
+          startedAt: "2024-12-18T12:27:46Z"
+    phase: Running
+    podIP: 10.244.1.246
+    podIPs:
+    - ip: 10.244.1.246
+    qosClass: Burstable
+    startTime: "2024-12-18T12:27:45Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      checksum/auth-token: 6d2c
+      checksum/proxy-secret: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+    creationTimestamp: "2024-12-18T09:44:17Z"
+    generateName: proxy-5f58bdcb49-
+    labels:
+      app: jupyterhub
+      component: proxy
+      hub.jupyter.org/network-access-hub: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 5f58bdcb49
+      release: jhub2
+    name: proxy-5f58bdcb49-xnr76
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: proxy-5f58bdcb49
+      uid: 250fdc5f-d8fe-4e56-a28a-07ab5d2ff0e6
+    resourceVersion: "1164817"
+    uid: b2d3be9b-f760-4974-a107-3ccd60121682
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+          weight: 100
+    containers:
+    - command:
+      - configurable-http-proxy
+      - --ip=
+      - --api-ip=
+      - --api-port=8001
+      - --default-target=http://hub:$(HUB_SERVICE_PORT)
+      - --error-target=http://hub:$(HUB_SERVICE_PORT)/hub/error
+      - --port=8000
+      env:
+      - name: CONFIGPROXY_AUTH_TOKEN
+        valueFrom:
+          secretKeyRef:
+            key: hub.config.ConfigurableHTTPProxy.auth_token
+            name: hub
+      image: quay.io/jupyterhub/configurable-http-proxy:4.6.1
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 30
+        httpGet:
+          path: /_chp_healthz
+          port: http
+          scheme: HTTP
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 3
+      name: chp
+      ports:
+      - containerPort: 8000
+        name: http
+        protocol: TCP
+      - containerPort: 8001
+        name: api
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 1000
+        httpGet:
+          path: /_chp_healthz
+          port: http
+          scheme: HTTP
+        periodSeconds: 2
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsGroup: 65534
+        runAsUser: 65534
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-mbrx5
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: exxact-10887
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 60
+    tolerations:
+    - effect: NoSchedule
+      key: hub.jupyter.org/dedicated
+      operator: Equal
+      value: core
+    - effect: NoSchedule
+      key: hub.jupyter.org_dedicated
+      operator: Equal
+      value: core
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-mbrx5
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T09:44:18Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T09:44:17Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T09:44:18Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T09:44:18Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T09:44:17Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://571863305b94a67f07a2069603551275a2bcb3eaaf28d067dc96bbd19f8b8376
+      image: quay.io/jupyterhub/configurable-http-proxy:4.6.1
+      imageID: docker-pullable://quay.io/jupyterhub/configurable-http-proxy@sha256:fd916f75415f1e7e813c5a18b34a6042a601604938ff8777b044447efb3bd819
+      lastState: {}
+      name: chp
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-18T09:44:18Z"
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-mbrx5
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 10.105.10.80
+    hostIPs:
+    - ip: 10.105.10.80
+    phase: Running
+    podIP: 10.244.0.107
+    podIPs:
+    - ip: 10.244.0.107
+    qosClass: BestEffort
+    startTime: "2024-12-18T09:44:17Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      checksum/config-map: bfc1ec0aaf32a210251845978d69dfc553da9fd55e21bb3f242df24e8c3eae98
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generateName: user-scheduler-64ffb78f85-
+    labels:
+      app: jupyterhub
+      component: user-scheduler
+      pod-template-hash: 64ffb78f85
+      release: jhub2
+    name: user-scheduler-64ffb78f85-sw9qc
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: user-scheduler-64ffb78f85
+      uid: de3def25-6aca-4a95-a5dc-31243d386731
+    resourceVersion: "1123603"
+    uid: 6019378f-b3e4-4be2-9e11-6f0c08ac07e5
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+          weight: 100
+    containers:
+    - command:
+      - /usr/local/bin/kube-scheduler
+      - --config=/etc/user-scheduler/config.yaml
+      - --authentication-skip-lookup=true
+      - --v=4
+      image: registry.k8s.io/kube-scheduler:v1.26.15
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /healthz
+          port: 10259
+          scheme: HTTPS
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: kube-scheduler
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /healthz
+          port: 10259
+          scheme: HTTPS
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsGroup: 65534
+        runAsUser: 65534
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/user-scheduler
+        name: config
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-rh4xv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: exxact-10887
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: user-scheduler
+    serviceAccountName: user-scheduler
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: hub.jupyter.org/dedicated
+      operator: Equal
+      value: core
+    - effect: NoSchedule
+      key: hub.jupyter.org_dedicated
+      operator: Equal
+      value: core
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: user-scheduler
+      name: config
+    - name: kube-api-access-rh4xv
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:29Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:29Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://f9cdeeb79dc70c8b1b95cfdc6c340e2d9c28f433111053afc5f7ffda32b214f1
+      image: registry.k8s.io/kube-scheduler:v1.26.15
+      imageID: docker-pullable://registry.k8s.io/kube-scheduler@sha256:6447dce5ea569c857b161436235292bc30280b3f83fda5df730b23b0812336dc
+      lastState: {}
+      name: kube-scheduler
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-18T06:16:31Z"
+      volumeMounts:
+      - mountPath: /etc/user-scheduler
+        name: config
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-rh4xv
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 10.105.10.80
+    hostIPs:
+    - ip: 10.105.10.80
+    phase: Running
+    podIP: 10.244.0.65
+    podIPs:
+    - ip: 10.244.0.65
+    qosClass: BestEffort
+    startTime: "2024-12-18T06:16:29Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      checksum/config-map: bfc1ec0aaf32a210251845978d69dfc553da9fd55e21bb3f242df24e8c3eae98
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generateName: user-scheduler-64ffb78f85-
+    labels:
+      app: jupyterhub
+      component: user-scheduler
+      pod-template-hash: 64ffb78f85
+      release: jhub2
+    name: user-scheduler-64ffb78f85-wxkzh
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: user-scheduler-64ffb78f85
+      uid: de3def25-6aca-4a95-a5dc-31243d386731
+    resourceVersion: "1123608"
+    uid: f9bbf074-2447-47b1-a944-8461f17e060a
+  spec:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+            - key: hub.jupyter.org/node-purpose
+              operator: In
+              values:
+              - core
+          weight: 100
+    containers:
+    - command:
+      - /usr/local/bin/kube-scheduler
+      - --config=/etc/user-scheduler/config.yaml
+      - --authentication-skip-lookup=true
+      - --v=4
+      image: registry.k8s.io/kube-scheduler:v1.26.15
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /healthz
+          port: 10259
+          scheme: HTTPS
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: kube-scheduler
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /healthz
+          port: 10259
+          scheme: HTTPS
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        runAsGroup: 65534
+        runAsUser: 65534
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /etc/user-scheduler
+        name: config
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9q68t
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: exxact-10887
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: user-scheduler
+    serviceAccountName: user-scheduler
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: hub.jupyter.org/dedicated
+      operator: Equal
+      value: core
+    - effect: NoSchedule
+      key: hub.jupyter.org_dedicated
+      operator: Equal
+      value: core
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - configMap:
+        defaultMode: 420
+        name: user-scheduler
+      name: config
+    - name: kube-api-access-9q68t
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:29Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:32Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-18T06:16:29Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://d5fbd47f0bac54e4b926cc4e7a7ecd33d423456cb172e13e3866ac1f0bf5654e
+      image: registry.k8s.io/kube-scheduler:v1.26.15
+      imageID: docker-pullable://registry.k8s.io/kube-scheduler@sha256:6447dce5ea569c857b161436235292bc30280b3f83fda5df730b23b0812336dc
+      lastState: {}
+      name: kube-scheduler
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-18T06:16:31Z"
+      volumeMounts:
+      - mountPath: /etc/user-scheduler
+        name: config
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9q68t
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 10.105.10.80
+    hostIPs:
+    - ip: 10.105.10.80
+    phase: Running
+    podIP: 10.244.0.64
+    podIPs:
+    - ip: 10.244.0.64
+    qosClass: BestEffort
+    startTime: "2024-12-18T06:16:29Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+      prometheus.io/path: /hub/metrics
+      prometheus.io/port: "8081"
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: hub
+      heritage: Helm
+      release: jhub2
+    name: hub
+    namespace: jhub2
+    resourceVersion: "1123477"
+    uid: 5a52ae8d-e6ac-40e4-b2f6-3664adff9132
+  spec:
+    clusterIP: 10.100.28.110
+    clusterIPs:
+    - 10.100.28.110
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: hub
+      port: 8081
+      protocol: TCP
+      targetPort: http
+    selector:
+      app: jupyterhub
+      component: hub
+      release: jhub2
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: proxy-api
+      heritage: Helm
+      release: jhub2
+    name: proxy-api
+    namespace: jhub2
+    resourceVersion: "1123481"
+    uid: dac26ca5-b8de-4c81-8da0-482338f51ff2
+  spec:
+    clusterIP: 10.110.174.167
+    clusterIPs:
+    - 10.110.174.167
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 8001
+      protocol: TCP
+      targetPort: api
+    selector:
+      app: jupyterhub
+      component: proxy
+      release: jhub2
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: proxy-public
+      heritage: Helm
+      release: jhub2
+    name: proxy-public
+    namespace: jhub2
+    resourceVersion: "1123485"
+    uid: af4074d0-8c01-43a9-99b6-45e8d914d560
+  spec:
+    clusterIP: 10.101.141.33
+    clusterIPs:
+    - 10.101.141.33
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+    selector:
+      app: jupyterhub
+      component: proxy
+      release: jhub2
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: DaemonSet
+  metadata:
+    annotations:
+      deprecated.daemonset.template.generation: "1"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 1
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: continuous-image-puller
+      heritage: Helm
+      release: jhub2
+    name: continuous-image-puller
+    namespace: jhub2
+    resourceVersion: "1123613"
+    uid: ed5a2494-c9bf-4801-8f31-c68feaf90e2c
+  spec:
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: continuous-image-puller
+        release: jhub2
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: continuous-image-puller
+          release: jhub2
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - image: registry.k8s.io/pause:3.9
+          imagePullPolicy: IfNotPresent
+          name: pause
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - /bin/sh
+          - -c
+          - echo "Pulling complete"
+          image: quay.io/jupyterhub/k8s-network-tools:3.3.8
+          imagePullPolicy: IfNotPresent
+          name: image-pull-metadata-block
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - command:
+          - /bin/sh
+          - -c
+          - echo "Pulling complete"
+          image: jupyter/datascience-notebook:latest
+          imagePullPolicy: Always
+          name: image-pull-singleuser
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 0
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: user
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: user
+    updateStrategy:
+      rollingUpdate:
+        maxSurge: 0
+        maxUnavailable: 100%
+      type: RollingUpdate
+  status:
+    currentNumberScheduled: 1
+    desiredNumberScheduled: 1
+    numberAvailable: 1
+    numberMisscheduled: 0
+    numberReady: 1
+    observedGeneration: 1
+    updatedNumberScheduled: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 9
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: hub
+      heritage: Helm
+      release: jhub2
+    name: hub
+    namespace: jhub2
+    resourceVersion: "1197530"
+    uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        release: jhub2
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: d14808fdefc1510e752d95e2c1be3c4da679c3a4ac926646587effd1b1038349
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-18T12:35:06Z"
+      lastUpdateTime: "2024-12-18T12:35:06Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-18T06:16:29Z"
+      lastUpdateTime: "2024-12-18T12:35:06Z"
+      message: ReplicaSet "hub-845b7f5545" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 9
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: proxy
+      heritage: Helm
+      release: jhub2
+    name: proxy
+    namespace: jhub2
+    resourceVersion: "1164823"
+    uid: 8aaea783-9d06-442f-9b62-d0df7a2f70eb
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: proxy
+        release: jhub2
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        annotations:
+          checksum/auth-token: 6d2c
+          checksum/proxy-secret: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: proxy
+          hub.jupyter.org/network-access-hub: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - command:
+          - configurable-http-proxy
+          - --ip=
+          - --api-ip=
+          - --api-port=8001
+          - --default-target=http://hub:$(HUB_SERVICE_PORT)
+          - --error-target=http://hub:$(HUB_SERVICE_PORT)/hub/error
+          - --port=8000
+          env:
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/configurable-http-proxy:4.6.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /_chp_healthz
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: chp
+          ports:
+          - containerPort: 8000
+            name: http
+            protocol: TCP
+          - containerPort: 8001
+            name: api
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /_chp_healthz
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-18T09:44:18Z"
+      lastUpdateTime: "2024-12-18T09:44:18Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-18T06:16:29Z"
+      lastUpdateTime: "2024-12-18T09:44:18Z"
+      message: ReplicaSet "proxy-5f58bdcb49" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 1
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: user-scheduler
+      heritage: Helm
+      release: jhub2
+    name: user-scheduler
+    namespace: jhub2
+    resourceVersion: "1123612"
+    uid: 54f77bae-3948-4475-9cc3-3c8be0ba6d37
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: user-scheduler
+        release: jhub2
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: bfc1ec0aaf32a210251845978d69dfc553da9fd55e21bb3f242df24e8c3eae98
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: user-scheduler
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - command:
+          - /usr/local/bin/kube-scheduler
+          - --config=/etc/user-scheduler/config.yaml
+          - --authentication-skip-lookup=true
+          - --v=4
+          image: registry.k8s.io/kube-scheduler:v1.26.15
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 10259
+              scheme: HTTPS
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: kube-scheduler
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 10259
+              scheme: HTTPS
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/user-scheduler
+            name: config
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: user-scheduler
+        serviceAccountName: user-scheduler
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: user-scheduler
+          name: config
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2024-12-18T06:16:32Z"
+      lastUpdateTime: "2024-12-18T06:16:32Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-18T06:16:29Z"
+      lastUpdateTime: "2024-12-18T06:16:32Z"
+      message: ReplicaSet "user-scheduler-64ffb78f85" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "4"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T10:16:52Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 56f4ff486b
+      release: jhub2
+    name: hub-56f4ff486b
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1187442"
+    uid: 058f0ce5-2648-4ade-9c58-3682e622d2dd
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 56f4ff486b
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: 87cd7cb3caa17f2f6955152d1e9782bc1468ecf1e10c0a4cf4b278fc85abb26f
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 56f4ff486b
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 5995d85b8c
+      release: jhub2
+    name: hub-5995d85b8c
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1164753"
+    uid: de0940e0-f870-47d5-ae91-0350ec26c4c0
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 5995d85b8c
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: cba1d6522b1172a0dfbfeba283ca366371ef5b93a7b9bdd589f56a911923b96f
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 5995d85b8c
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "5"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T11:43:36Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 5f55664495
+      release: jhub2
+    name: hub-5f55664495
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1187715"
+    uid: 30e15f14-d9e6-42f5-8f27-033a35a46391
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 5f55664495
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: baa4d4c4c42a8dfac039edea93cd59342740680fb0634e1680744e1a6a96f738
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 5f55664495
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "6"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T11:44:48Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 66d454fbf6
+      release: jhub2
+    name: hub-66d454fbf6
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1188987"
+    uid: 2f4fe504-18af-4808-9ac5-6514c5bbe774
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 66d454fbf6
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: 3e41e9c4f15b9c5b9c7443c8153d40ee901ef591442a313b9b07b49b3c2ad61c
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 66d454fbf6
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T09:44:17Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 69466499ff
+      release: jhub2
+    name: hub-69466499ff
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1165934"
+    uid: 84c90122-74ed-44c0-a420-cac875e5b409
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 69466499ff
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: 6e60f3075e7361d4fb37a47a174e7c596494cb6db9ac9ef42246536c60fdcf69
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 69466499ff
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "7"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T11:50:47Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 776d45b545
+      release: jhub2
+    name: hub-776d45b545
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1189754"
+    uid: db2addf3-068a-40cd-b3b4-7856e0df050f
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 776d45b545
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: 5f44aad7210b981bf655d05cd5844bc8c9283d64670d207917d5506762208ecf
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 776d45b545
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "9"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T12:35:04Z"
+    generation: 1
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 845b7f5545
+      release: jhub2
+    name: hub-845b7f5545
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1197529"
+    uid: 967a24df-b867-4f57-822d-a0ae51e7a15b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 845b7f5545
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: d14808fdefc1510e752d95e2c1be3c4da679c3a4ac926646587effd1b1038349
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 845b7f5545
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "3"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T09:49:53Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 84f6c57fcd
+      release: jhub2
+    name: hub-84f6c57fcd
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1171091"
+    uid: c3b30de5-c428-410a-b092-f411b8568049
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: 84f6c57fcd
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: fd694a9b01857f1a316897736514d910ebd9a798a6ff0171aaa1295b7f913a67
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 84f6c57fcd
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "8"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T11:54:39Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: hub
+      hub.jupyter.org/network-access-proxy-api: "true"
+      hub.jupyter.org/network-access-proxy-http: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: d687d6b8
+      release: jhub2
+    name: hub-d687d6b8
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: hub
+      uid: ef1fb0a1-bfaf-4e35-ac67-84ab50a4b903
+    resourceVersion: "1197488"
+    uid: 27113d07-43a7-4037-b5dc-2f07ed251fe8
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: hub
+        pod-template-hash: d687d6b8
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: cc9add34f9d7072f9a6458027fa031f9a9d3f6ba063124fa40de4757841e72ec
+          checksum/secret: b54a7046ca5e4431a23e68591e51ae6cea1543e9786af0214eb9ba52aca0847d
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: hub
+          hub.jupyter.org/network-access-proxy-api: "true"
+          hub.jupyter.org/network-access-proxy-http: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: d687d6b8
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - args:
+          - jupyterhub
+          - --config
+          - /usr/local/etc/jupyterhub/jupyterhub_config.py
+          - --upgrade-db
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          - name: HELM_RELEASE_NAME
+            value: jhub2
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/k8s-hub:3.3.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: hub
+          ports:
+          - containerPort: 8081
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /hub/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 1000
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/etc/jupyterhub/jupyterhub_config.py
+            name: config
+            subPath: jupyterhub_config.py
+          - mountPath: /usr/local/etc/jupyterhub/z2jh.py
+            name: config
+            subPath: z2jh.py
+          - mountPath: /usr/local/etc/jupyterhub/config/
+            name: config
+          - mountPath: /usr/local/etc/jupyterhub/secret/
+            name: secret
+          - mountPath: /etc/jupyterhub/profile_access_authenticator.py
+            name: files
+            subPath: profile_access_authenticator.py
+          - mountPath: /srv/jupyterhub
+            name: pvc
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+        serviceAccount: hub
+        serviceAccountName: hub
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: hub
+          name: config
+        - name: secret
+          secret:
+            defaultMode: 420
+            secretName: hub
+        - name: files
+          secret:
+            defaultMode: 420
+            items:
+            - key: profile_access_authenticator.py
+              path: profile_access_authenticator.py
+            secretName: hub
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: hub-db-dir
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T09:44:17Z"
+    generation: 1
+    labels:
+      app: jupyterhub
+      component: proxy
+      hub.jupyter.org/network-access-hub: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 5f58bdcb49
+      release: jhub2
+    name: proxy-5f58bdcb49
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: proxy
+      uid: 8aaea783-9d06-442f-9b62-d0df7a2f70eb
+    resourceVersion: "1164822"
+    uid: 250fdc5f-d8fe-4e56-a28a-07ab5d2ff0e6
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: proxy
+        pod-template-hash: 5f58bdcb49
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/auth-token: 6d2c
+          checksum/proxy-secret: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: proxy
+          hub.jupyter.org/network-access-hub: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 5f58bdcb49
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - command:
+          - configurable-http-proxy
+          - --ip=
+          - --api-ip=
+          - --api-port=8001
+          - --default-target=http://hub:$(HUB_SERVICE_PORT)
+          - --error-target=http://hub:$(HUB_SERVICE_PORT)/hub/error
+          - --port=8000
+          env:
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/configurable-http-proxy:4.6.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /_chp_healthz
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: chp
+          ports:
+          - containerPort: 8000
+            name: http
+            protocol: TCP
+          - containerPort: 8001
+            name: api
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /_chp_healthz
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "1"
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 2
+    labels:
+      app: jupyterhub
+      component: proxy
+      hub.jupyter.org/network-access-hub: "true"
+      hub.jupyter.org/network-access-singleuser: "true"
+      pod-template-hash: 7bf979cd88
+      release: jhub2
+    name: proxy-7bf979cd88
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: proxy
+      uid: 8aaea783-9d06-442f-9b62-d0df7a2f70eb
+    resourceVersion: "1164765"
+    uid: cedfe74c-26e0-402e-a11a-5bb5b1dc8fa7
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: proxy
+        pod-template-hash: 7bf979cd88
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/auth-token: 3b50
+          checksum/proxy-secret: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: proxy
+          hub.jupyter.org/network-access-hub: "true"
+          hub.jupyter.org/network-access-singleuser: "true"
+          pod-template-hash: 7bf979cd88
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - command:
+          - configurable-http-proxy
+          - --ip=
+          - --api-ip=
+          - --api-port=8001
+          - --default-target=http://hub:$(HUB_SERVICE_PORT)
+          - --error-target=http://hub:$(HUB_SERVICE_PORT)/hub/error
+          - --port=8000
+          env:
+          - name: CONFIGPROXY_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: hub.config.ConfigurableHTTPProxy.auth_token
+                name: hub
+          image: quay.io/jupyterhub/configurable-http-proxy:4.6.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /_chp_healthz
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: chp
+          ports:
+          - containerPort: 8000
+            name: http
+            protocol: TCP
+          - containerPort: 8001
+            name: api
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 1000
+            httpGet:
+              path: /_chp_healthz
+              port: http
+              scheme: HTTP
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+  status:
+    observedGeneration: 2
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 1
+    labels:
+      app: jupyterhub
+      component: user-scheduler
+      pod-template-hash: 64ffb78f85
+      release: jhub2
+    name: user-scheduler-64ffb78f85
+    namespace: jhub2
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: user-scheduler
+      uid: 54f77bae-3948-4475-9cc3-3c8be0ba6d37
+    resourceVersion: "1123610"
+    uid: de3def25-6aca-4a95-a5dc-31243d386731
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: user-scheduler
+        pod-template-hash: 64ffb78f85
+        release: jhub2
+    template:
+      metadata:
+        annotations:
+          checksum/config-map: bfc1ec0aaf32a210251845978d69dfc553da9fd55e21bb3f242df24e8c3eae98
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: user-scheduler
+          pod-template-hash: 64ffb78f85
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - core
+              weight: 100
+        containers:
+        - command:
+          - /usr/local/bin/kube-scheduler
+          - --config=/etc/user-scheduler/config.yaml
+          - --authentication-skip-lookup=true
+          - --v=4
+          image: registry.k8s.io/kube-scheduler:v1.26.15
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 10259
+              scheme: HTTPS
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: kube-scheduler
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 10259
+              scheme: HTTPS
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/user-scheduler
+            name: config
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: user-scheduler
+        serviceAccountName: user-scheduler
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: core
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: core
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: user-scheduler
+          name: config
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: jhub2
+      meta.helm.sh/release-namespace: jhub2
+    creationTimestamp: "2024-12-18T06:16:29Z"
+    generation: 1
+    labels:
+      app: jupyterhub
+      app.kubernetes.io/managed-by: Helm
+      chart: jupyterhub-3.3.8
+      component: user-placeholder
+      heritage: Helm
+      release: jhub2
+    name: user-placeholder
+    namespace: jhub2
+    resourceVersion: "1123535"
+    uid: b5824728-fb44-4561-9a93-72e0c01cbfdb
+  spec:
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
+    podManagementPolicy: Parallel
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: jupyterhub
+        component: user-placeholder
+        release: jhub2
+    serviceName: user-placeholder
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: jupyterhub
+          component: user-placeholder
+          release: jhub2
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: hub.jupyter.org/node-purpose
+                  operator: In
+                  values:
+                  - user
+              weight: 100
+        automountServiceAccountToken: false
+        containers:
+        - image: registry.k8s.io/pause:3.9
+          imagePullPolicy: IfNotPresent
+          name: pause
+          resources:
+            limits:
+              cpu: "8"
+              memory: 16Gi
+            requests:
+              cpu: "2"
+              memory: 8Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 65534
+            runAsUser: 65534
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: jhub2-user-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 0
+        tolerations:
+        - effect: NoSchedule
+          key: hub.jupyter.org/dedicated
+          operator: Equal
+          value: user
+        - effect: NoSchedule
+          key: hub.jupyter.org_dedicated
+          operator: Equal
+          value: user
+    updateStrategy:
+      rollingUpdate:
+        partition: 0
+      type: RollingUpdate
+  status:
+    availableReplicas: 0
+    collisionCount: 0
+    currentRevision: user-placeholder-65cf4f4bb6
+    observedGeneration: 1
+    replicas: 0
+    updateRevision: user-placeholder-65cf4f4bb6
+kind: List
+metadata:
+  resourceVersion: ""

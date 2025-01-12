@@ -1,0 +1,89 @@
+# Run or enable a service
+chmod +x kubernetes-services-start.sh
+sudo cp kubernetes-services-start.sh /usr/local/bin/
+
+# Add to crontab with @reboot
+(crontab -l 2>/dev/null; echo "@reboot /usr/local/bin/kubernetes-services-start.sh") | crontab -
+
+
+# Export backup if required
+kubectl get ipaddresspool -n metallb-system -o yaml > metallb-config.yaml
+kubectl get l2advertisement -n metallb-system -o yaml >> metallb-config.yaml
+helm get values jhub2 -n jhub2 -o yaml > jupyterhub-config.yaml
+
+# Get dashboard values
+helm get values kubernetes-dashboard -n kubernetes-dashboard -o yaml > dashboard-config.yaml
+
+# Export dashboard user and role binding
+kubectl get serviceaccount dashboard-user -n kubernetes-dashboard -o yaml > dashboard-user.yaml
+kubectl get clusterrolebinding dashboard-user -o yaml > dashboard-clusterrolebinding.yaml
+
+
+kubectl get all -n kubernetes-dashboard -o yaml > dashboard_backup.yaml
+kubectl get all -n jhub2 -o yaml > jhub_backup.yaml
+kubectl get configmap -n jhub2 -o yaml > jhub_configmaps.yaml
+kubectl get secret -n jhub2 -o yaml > jhub_secrets.yaml
+
+
+# Get all ingress-related configurations
+kubectl get ingress -A -o yaml > ingress-backup.yaml
+
+# Get NGINX ConfigMaps
+kubectl get configmap -n ingress-nginx -o yaml > nginx-configmap-backup.yaml
+
+# Get NGINX deployment and service configs
+kubectl get deployment,svc -n ingress-nginx -o yaml > nginx-deploy-svc-backup.yaml
+
+# Get all resources in ingress-nginx namespace
+kubectl get all -n ingress-nginx -o yaml > nginx-all-backup.yaml
+
+this will solve most ingress problem for this setup if problem arises:
+kubectl apply -f ingress-backup.yaml
+
+# Change user password and attach user old storage
+# Example user1 forgot his password, Admin deletes the user form the admin panel in jupyterhub web browser
+# User1 again signups with same username and different password in the browser
+# It works but the old files are missing
+# To solve this:
+Check -
+kubectl get pvc -n jhub2
+kubectl get pv -n jhub2
+
+# might need to delete any pod running for that user else  deleting pvc for that user will be stuck indefinitely:
+# kubectl get pods -n jhub2 | grep user1
+# kubectl delete pod -n jhub2 jupyter-user1 --force --grace-period=0
+
+Delete current user1's PVC:
+kubectl delete pvc claim-user1 -n jhub2
+sleep 10 # wait to ensure cleanup
+
+# Clear any remaining claims , use old pv
+kubectl patch pv pvc-2235cd2e-fa44-4e6e-a4d8-44d37ee0949b -p '{"spec":{"claimRef": null}}'
+
+Create new PVC pointing to the old PV
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: claim-user1
+  namespace: jhub2
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: nfs-client
+  resources:
+    requests:
+      storage: 200Gi
+  volumeName: pvc-2235cd2e-fa44-4e6e-a4d8-44d37ee0949b  # This is the old PV
+EOF
+
+Verify the binding:
+kubectl get pvc claim-user1 -n jhub2
+
+
+#Clean up any Released PVs that are no longer needed:
+# List Released PVs
+kubectl get pv | grep Released
+
+# For each one you want to clean up:
+kubectl delete pv <pv-name>
